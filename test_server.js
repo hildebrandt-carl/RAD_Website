@@ -24,9 +24,24 @@ var server = http.createServer(function(req, resp)
 		    resp.end();
 		});
 	}
-    else if (uri === "/testing.html") {
+    else if (uri === "/") {
         fs.readFile("./testing.html", function (error, pgResp) {
             console.log("currently in function testing");
+            if (error) {
+                resp.writeHead(404);
+                resp.write('Contents you are looking are Not Found');
+            }
+            else {
+                console.log("currently else or printing Testing");
+                resp.writeHead(200, { 'Content-Type': 'text/html' });
+                resp.write(pgResp);
+            }
+            resp.end();
+        });
+    }
+    else if (uri === "/test") {
+        fs.readFile("./Format.html", function (error, pgResp) {
+            console.log("currently in function testing2");
             if (error) {
                 resp.writeHead(404);
                 resp.write('Contents you are looking are Not Found');
