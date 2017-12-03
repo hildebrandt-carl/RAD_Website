@@ -7,14 +7,16 @@ var s = require("net").Socket();
 var serverip = '160.119.248.28';
 var serverport = 4242;
 
-try{
+/*try{
 	console.log("trying connection");
 	s.connect(serverport, serverip);
 	s.write("web");
 }
 catch(err){
 	console.log("failed connection");
-}
+	resp.writeHead(420);
+    resp.write('Failed Connection');
+}*/
 
 s.on('data', function(d){
 	console.log(d.toString());
@@ -42,16 +44,16 @@ var server = http.createServer(function(req, resp)
             }
             resp.end();
         });
-	} else if(uri === "/BASIC.html") {//BasicHTML, for testing
-        fs.readFile("./BASIC.html", function (error, pgResp)
+	} else if(uri === "/form.html") {//FormHTML, for testing
+        fs.readFile("./form.html", function (error, pgResp)
 		{
-		    console.log("currently in function Basic");
+		    console.log("currently in function Form");
 			if(error) {
 			    resp.writeHead(404);
 			    resp.write('Contents you are looking are Not Found');
 			}
 			else {
-			    console.log("currently else or printing Basic");
+			    console.log("currently else or printing Form");
 			    resp.writeHead(200, { 'Content-Type': 'text/html' });
 			    resp.write(pgResp);
 			}
@@ -77,11 +79,11 @@ var server = http.createServer(function(req, resp)
 	};
 	
 	if (req.method.toLowerCase() == 'post') {
-        processFormFieldsIndividual(req, resp);
+        processdrum(req, resp);
     }
 });
 
-function processFormFieldsIndividual(req, resp) {
+function processdrum(req, resp) {
     //Store the data from the fields in your data store.
     //The data store could be a file or database or any other store based
     //on your application.
