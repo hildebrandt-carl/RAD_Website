@@ -3,6 +3,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
+<link rel="icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIRTeAP+EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAREAAAICAAABAQAAIgIAABABAAAgACABEAAQAgAAIAEAABECAAACEQAAASIAAAAQAAABEAAAABIAAAIQAAABAiAAAhAAAAEAIAAiAQAAEAAgACABAAAQAAICIAEQARAAAiIAABABAAAAIgAAEBAAAAAgAAAREAAAAAAAAAF+PgAAvrwAAL29AADZ2wAA28sAAOPjAAD35wAA8+cAAOnnAADtywAA3dsAAN6ZAACePQAAvz0AAH98AAB//gAA" type="image/x-icon" />
+<link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIRTeAP+EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAREAAAICAAABAQAAIgIAABABAAAgACABEAAQAgAAIAEAABECAAACEQAAASIAAAAQAAABEAAAABIAAAIQAAABAiAAAhAAAAEAIAAiAQAAEAAgACABAAAQAAICIAEQARAAAiIAABABAAAAIgAAEBAAAAAgAAAREAAAAAAAAAF+PgAAvrwAAL29AADZ2wAA28sAAOPjAAD35wAA8+cAAOnnAADtywAA3dsAAN6ZAACePQAAvz0AAH98AAB//gAA" type="image/x-icon" />
 <style>
 p.center 
 {
@@ -153,14 +155,13 @@ p.center
 
 .topnav a.active {
   background-color: #4CAF50;
-  color: black;
+  color: white;
 }
 
 </style>
 <!-- START OF HTML PAGE -->
 </head>
 <body>
-<p id="demo"></p>
 
 <div class="topnav">
   <a class="active" href="#home" onclick="myFunction3()">Home</a>
@@ -170,39 +171,36 @@ p.center
 </div>
 
 
-<p class="center">RADTEAM</p>
-
-<div class="btn-group">
-<a href="https://github.com/hildebrandt-carl/RAD_FinalDemo" class = "buttonBorder button6">Final Demo git page</a>
-<a href="https://github.com/hildebrandt-carl/RAD_VirtualReality" class = "buttonBorder button6">VR git page</a>
-<a href="https://github.com/hildebrandt-carl/RAD_Website" class = "buttonBorder button6">Website's git page</a>
-<a href="https://github.com/hildebrandt-carl/RAD_Controller" class = "buttonBorder button6">Controller git page</a>
-</div> 
-<p style="clear:both"></p>
+<div style="text-align:center;background-color:#99ff99;color:black;padding:20px;">
+<h3>RAD Team</h3>
+</div>
 
 <button class="button button1"
-onclick="document.getElementById('demo').innerHTML = Date()">
-Green
+onclick="myFunction()">
+Drum1
 </button>
 
 <button class="button button2"
-onclick="document.getElementById('demo').innerHTML = Date()">
-Blue
+onclick="myFunction2()">
+Drum2
 </button>
 
-<button class="button button3">
-Red
+<button class="button button3" 
+onclick="myFunction3()">
+Drum3
 </button>
 
 <button class="button button4"
-onclick="myFunction3()">
-Gray
+onclick="strike()">
+Drum4
 </button>
 
 <button class="button button5"
-onclick="myFunction3()">
-Black
+onclick="strike()">
+Drum5
 </button>
+<p id="demo"></p>
+
 
 <script>
 function myFunction() {
@@ -231,6 +229,13 @@ function myFunction3() {
     document.getElementById("demo").style.fontSize = "25px"; 
     document.getElementById("demo").style.color = "yellow";
     document.getElementById("demo").style.backgroundColor = "blue";        
+}
+</script>
+
+<script>
+function strike()
+{
+	alert("Hello\nHow are you?");
 }
 </script>
 
