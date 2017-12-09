@@ -26,51 +26,9 @@ var vr = "0";
 var web = "0";
 var con = "0";
 //&#10004;	
-s.on('data', function(d){
-	console.log(d.toString());
-	console.log(String(d).substring(4,1));
-	console.log(String(d).substring(3,4));
-	console.log(String(d).substring(4,5));
-	if(String(d).substring(0,3) == "ack"){
-		console.log(d.toString());
-	}
-	else if(String(d).substring(0,3) == "meg"){
-		nummesg = parseInt(String(d).substring(3,4), 10);
-	}
-	else if(String(d).substring(0,3) == "usr"){
-		numusers = parseInt(String(d).substring(3,4), 10);
-	}
-	else if(String(d).substring(0,3) == "vrb"){
-		if(parseInt(String(d).substring(3,4), 10) == 1){
-		vr = "1";
-		}
-		else if(parseInt(String(d).substring(3,4), 10) == 0){
-		vr = "0";
-		}
-	}
-	else if(String(d).substring(0,3) == "web"){
-		if(parseInt(String(d).substring(3,4), 10) == 1){
-		web = "1";
-		}
-		else if(parseInt(String(d).substring(3,4), 10) == 0){
-		web = "0";
-		}
-	}
-	else if(String(d).substring(0,3) == "con"){
-		if(parseInt(String(d).substring(3,4), 10) == 1){
-		con = "1";
-		}
-		else if(parseInt(String(d).substring(3,4), 10) == 0){
-		con = "0";
-		}
-	}
-	else
-	{
-		console.log("error in received message " + d);
-	}	
-});
 
-var server = http.createServer(function(req, resp) {
+var server = http.createServer(function(req, resp) 
+{
 	/*
 	var nummesg = 0;
 	var numusers = 9000;
@@ -143,8 +101,56 @@ var server = http.createServer(function(req, resp) {
         processdrum(req, resp);
     }	
 });
+server.listen(4343);
+console.log("Server is listening");
 
-function processdrum(req, resp) {
+s.on('data', function(d)
+{
+	console.log(d.toString());
+	console.log(String(d).substring(4,1));
+	console.log(String(d).substring(3,4));
+	console.log(String(d).substring(4,5));
+	if(String(d).substring(0,3) == "ack"){
+		console.log(d.toString());
+	}
+	else if(String(d).substring(0,3) == "meg"){
+		nummesg = parseInt(String(d).substring(3,4), 10);
+	}
+	else if(String(d).substring(0,3) == "usr"){
+		numusers = parseInt(String(d).substring(3,4), 10);
+	}
+	else if(String(d).substring(0,3) == "vrb"){
+		if(parseInt(String(d).substring(3,4), 10) == 1){
+		vr = "1";
+		}
+		else if(parseInt(String(d).substring(3,4), 10) == 0){
+		vr = "0";
+		}
+	}
+	else if(String(d).substring(0,3) == "web"){
+		if(parseInt(String(d).substring(3,4), 10) == 1){
+		web = "1";
+		}
+		else if(parseInt(String(d).substring(3,4), 10) == 0){
+		web = "0";
+		}
+	}
+	else if(String(d).substring(0,3) == "con"){
+		if(parseInt(String(d).substring(3,4), 10) == 1){
+		con = "1";
+		}
+		else if(parseInt(String(d).substring(3,4), 10) == 0){
+		con = "0";
+		}
+	}
+	else
+	{
+		console.log("error in received message " + d);
+	}	
+});
+
+function processdrum(req, resp) 
+{
     //Store the data from the fields in your data store.
     //The data store could be a file or database or any other store based
     //on your application.
@@ -154,54 +160,59 @@ function processdrum(req, resp) {
     form.on('field', function (field, value) {
         console.log(field);
 		console.log(value);
-		if(value === "Bass") {
-			console.log("Received Value");
-			s.write("a");
-			//testing = testing+1;
+		output = 'x'
+		switch(String(value))
+		{
+			case 'Bass':
+				output = 'a' ;
+			break;
+			case 'Floor Tom':
+				output = 'b' ;
+			break;
+			case 'Low Tom':
+				output = 'c' ;
+			break;
+			case 'Hi Tom':
+				output = 'd' ;
+			break;
+			case 'Snare':
+				output = 'e' ;
+			break;
+			case 'Hi Hat':
+				output = 'f' ;
+			break;
+			case 'Cymbal':
+				output = 'g' ;
+			break;
+			break;
+			case 'Simple Beat':
+				output = 'w' ;
+			break;
+			case 'Complex Beat':
+				output = 'x' ;
+			break;
+			case 'Full Song':
+			output = 'y' ;
+			break;
+			case 'Annoy Grad Students':
+				output = 'abcdefg' ;
+			break;
+			case 'Stop':
+				output = 'z' ;
+			break;
+			default:
+				output = 'x' ;
+			break;
 		}
-		else if(value === "Floor Tom") {
-			console.log("Received Value2");
-			s.write("b");
-			//testing = testing+1;
+
+		try{
+			s.write(output)
 		}
-		else if(value === "Low Tom") {
-			console.log("Received Value3");
-			s.write("c");
-			//testing = testing+1;
+		catch(err){
+			console.log("Unable to send message to the webserver");
 		}
-		else if(value === "Hi Tom") {
-			console.log("Received Value4");
-			s.write("d");
-			//testing = testing+1;
-		}
-		else if(value === "Snare") {
-			console.log("Received Value5");
-			s.write("e");
-			//testing = testing+1;
-		}
-		else if(value === "Hi Hat") {
-			console.log("Received Value6");
-			s.write("f");
-			//testing = testing+1;
-		}
-		else if(value === "Cymbal") {
-			console.log("Received Value7");
-			s.write("g");
-			//testing = testing+1;
-		}
-		else if(value === "Simple Beat") {
-			console.log("Received Value8");
-			s.write("h");
-			//testing = testing+1;
-		}
-		else if(value === "Complex Beat") {
-			console.log("Received Value9");
-			s.write("i");
-			//testing = testing+1;
-		}
-        fields[field] = value;
+
+		fields[field] = value;
     });
     form.parse(req);
 }
-server.listen(4343);
-console.log("Server is listening");
