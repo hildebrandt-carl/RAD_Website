@@ -15,20 +15,19 @@ body, html {
 
 div.updatevalue {
 	border-radius: 25px;
-    position: absolute;
-	top:8%;
-	left:1%;
-	width: 150px;
+    position: relative;
+	margin:auto;
+	width: 550px;
 	height: 100px;
 	text-align: center;
-    border: 5px solid #88cc00;
+    border: 5px solid #ff9900;
 	background-color: #ffff80;
-	font-family: Pacifico;
-	font-size: 20px;
+	font-family: Arial;
+	font-size: 15px;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 500;
-	color: #E74C3C;
+	color: #000000;
 }
 
 .bg {
@@ -200,9 +199,16 @@ div.updatevalue {
 
 <div class="bg">
 	<div class="updatevalue">
+	<p>
 	Number of Drum Strikes so Far
-	<%= testing %>
+	<%= nummesg %><br />
+	Number of Users Connected <%= numusers %><br />
+	Vr Connected <%= vr %><br />
+	Web Connected <%= web %><br />
+	Con Connected <%= con %><br />
+	</p>
 	</div>
+	
 	<form action="http://127.0.0.1:4343/" method="post" enctype="multipart/form-data" >
 		
 		<div class="center">

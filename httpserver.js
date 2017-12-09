@@ -20,20 +20,65 @@ catch(err){
 }
 
 
-var testing = 30;
-
+var nummesg = 900;
+var numusers = 9000;
+var vr = "0";
+var web = "0";
+var con = "0";
+//&#10004;	
 s.on('data', function(d){
-	
-	if(d.toString() == "ack"){
+	console.log(d.toString());
+	console.log(String(d).substring(4,1));
+	console.log(String(d).substring(3,4));
+	console.log(String(d).substring(4,5));
+	if(String(d).substring(0,3) == "ack"){
 		console.log(d.toString());
 	}
-	else{
-	testing = d.parseInt();
+	else if(String(d).substring(0,3) == "meg"){
+		nummesg = parseInt(String(d).substring(3,4), 10);
 	}
+	else if(String(d).substring(0,3) == "usr"){
+		numusers = parseInt(String(d).substring(3,4), 10);
+	}
+	else if(String(d).substring(0,3) == "vrb"){
+		if(parseInt(String(d).substring(3,4), 10) == 1){
+		vr = "1";
+		}
+		else if(parseInt(String(d).substring(3,4), 10) == 0){
+		vr = "0";
+		}
+	}
+	else if(String(d).substring(0,3) == "web"){
+		if(parseInt(String(d).substring(3,4), 10) == 1){
+		web = "1";
+		}
+		else if(parseInt(String(d).substring(3,4), 10) == 0){
+		web = "0";
+		}
+	}
+	else if(String(d).substring(0,3) == "con"){
+		if(parseInt(String(d).substring(3,4), 10) == 1){
+		con = "1";
+		}
+		else if(parseInt(String(d).substring(3,4), 10) == 0){
+		con = "0";
+		}
+	}
+	else
+	{
+		console.log("error in received message " + d);
+	}	
 });
 
 var server = http.createServer(function(req, resp) {
-	
+	/*
+	var nummesg = 0;
+	var numusers = 9000;
+	var vr = 0;
+	var web = 0;
+	var con = 0;
+	var timeonline = 1:16:10;
+	*/
     var uri = url.parse(req.url).pathname;
     console.log(req.url);
 	console.log(req.method);
@@ -47,10 +92,10 @@ var server = http.createServer(function(req, resp) {
                 resp.write('Contents you are looking are Not Found');
             }
             else {
-                console.log("currently printing Root " + testing);
+                //console.log("currently printing Root " + nummesg);
                 resp.writeHead(200, { 'Content-Type': 'text/html' });
-				console.log("Wrote Head " + testing);
-				var renderedHtml = ejs.render(pgResp, {testing: testing});
+				//console.log("Wrote Head " + nummesg);
+				var renderedHtml = ejs.render(pgResp, {nummesg: nummesg, numusers: numusers, vr: vr, web: web, con: con});
 			    resp.write(renderedHtml);	
             }
             resp.end();
@@ -64,10 +109,10 @@ var server = http.createServer(function(req, resp) {
                 resp.write('Contents you are looking are Not Found');
             }
             else {
-                console.log("currently printing Root " + testing);
+                console.log("currently printing Root " + nummesg);
                 resp.writeHead(200, { 'Content-Type': 'text/html' });
-				console.log("Wrote Head " + testing);
-				var renderedHtml = ejs.render(pgResp, {testing: testing});
+				console.log("Wrote Head " + nummesg);
+				var renderedHtml = ejs.render(pgResp, {nummesg: nummesg});
 			    resp.write(renderedHtml);	
             }
             resp.end();
