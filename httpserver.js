@@ -5,8 +5,8 @@ var fs = require("fs");
 var formidable = require("formidable");
 var util = require('util');
 var s = require("net").Socket();
-//var serverip = '160.119.248.28';
-var serverip = '127.0.0.1' ;
+var serverip = '160.119.248.28';
+//var serverip = '127.0.0.1' ;
 var serverport = 4242;
 
 try{
@@ -23,9 +23,10 @@ catch(err){
 
 var nummesg = 900;
 var numusers = 9000;
-var vr = "0";
+var vrb = "0";
 var web = "0";
 var con = "0";
+var tim  = "12:12:12";
 //&#10004;	
 
 var server = http.createServer(function(req, resp) 
@@ -54,7 +55,7 @@ var server = http.createServer(function(req, resp)
                 //console.log("currently printing Root " + nummesg);
                 resp.writeHead(200, { 'Content-Type': 'text/html' });
 				//console.log("Wrote Head " + nummesg);
-				var renderedHtml = ejs.render(pgResp, {nummesg: nummesg, numusers: numusers, vr: vr, web: web, con: con});
+				var renderedHtml = ejs.render(pgResp, {nummesg: nummesg, numusers: numusers, vrb: vrb, web: web, con: con, tim: tim});
 			    resp.write(renderedHtml);	
             }
             resp.end();
@@ -115,10 +116,10 @@ s.on('data', function(d)
 		console.log(d.toString());
 	}
 	else if(String(d).substring(0,3) == "meg"){
-		nummesg = parseInt(String(d).substring(3,4), 10);
+		nummesg = parseInt(String(d).substring(3), 10);
 	}
 	else if(String(d).substring(0,3) == "usr"){
-		numusers = parseInt(String(d).substring(3,4), 10);
+		numusers = parseInt(String(d).substring(3), 10);
 	}
 	else if(String(d).substring(0,3) == "vrb"){
 		if(parseInt(String(d).substring(3,4), 10) == 1){
@@ -143,6 +144,9 @@ s.on('data', function(d)
 		else if(parseInt(String(d).substring(3,4), 10) == 0){
 		con = "0";
 		}
+	}
+	else if(String(d).substring(0,3) == "tim"){
+		tim = String(d).substring(3);
 	}
 	else
 	{

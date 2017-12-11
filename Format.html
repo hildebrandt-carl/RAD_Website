@@ -13,12 +13,30 @@ body, html {
     margin: 0;
 }
 
+#colorstrip
+{
+    width: 100%; height: 2px;
+    border-style: solid;
+    border-color: #3498DB;
+    background-color: #3498DB;
+}
+
+#headerBar {
+    height: 40px;
+    background: #3498DB;
+    position: relative;
+    top: 0;
+    width: 100%;
+    z-index: -1
+}
+
+
 div.updatevalue {
 	border-radius: 25px;
     position: relative;
 	margin:auto;
 	width: 550px;
-	height: 100px;
+	height: auto;
 	text-align: center;
     border: 5px solid #ff9900;
 	background-color: #ffff80;
@@ -204,16 +222,16 @@ div.updatevalue {
   <a href="https://github.com/hildebrandt-carl/RAD_Controller">About</a>
 </div>
 
-
 <div class="bg">
-	<div class="updatevalue">
+	<div class="updatevalue" style="top:1%;">
 	<p>
 	Number of Drum Strikes so Far
 	<%= nummesg %><br />
 	Number of Users Connected <%= numusers %><br />
-	Vr Connected <%= vr %><br />
+	Vr Connected <%= vrb %><br />
 	Web Connected <%= web %><br />
 	Con Connected <%= con %><br />
+	Time Server Has Been Online <%= tim %><br />
 	</p>
 	</div>
 	
