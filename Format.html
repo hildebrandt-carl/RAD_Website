@@ -223,15 +223,15 @@ div.updatevalue {
 
 <div class="bg">
 	<div class="updatevalue" style="top:1%;">
-	<p id="numdrums">Number of Drum Strikes so Far <%= nummesg %>;</p>
-	<p id="users">Number of Users Connected <%= numusers %></p>
-	<p id="vrcon">Is a Virtual Reality Machine Connected? </p>
-	<p id="webcon">Web Connected </p>
-	<p id="concon">Con Connected </p>
-	<p id="onlinetime">Time Server Has Been Online <%= tim %></p>
+	<p id="numdrums" style="line-height: 0.4;">Number of Drum Strikes so Far <%= nummesg %>;</p>
+	<p id="users" style="line-height: 0.4;">Number of Users Connected <%= numusers %></p>
+	<p id="vrcon" style="line-height: 0.4;">Is a Virtual Reality Machine Connected? </p>
+	<p id="webcon" style="line-height: 0.4;">Web Connected </p>
+	<p id="concon" style="line-height: 0.4;">Con Connected </p>
+	<p id="onlinetime" style="line-height: 0.4;">Time Server Has Been Online <%= tim %></p>
 	</div>
 	
-	<form method="post" enctype="multipart/form-data" >
+	<form action="http://127.0.0.1:4343/" method="post" enctype="multipart/form-data" >
 		
 		<div class="center">
 		<input type="submit" name="Drum1" value="Bass" 
