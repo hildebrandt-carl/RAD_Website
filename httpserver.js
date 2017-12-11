@@ -5,7 +5,8 @@ var fs = require("fs");
 var formidable = require("formidable");
 var util = require('util');
 var s = require("net").Socket();
-var serverip = '160.119.248.28';
+//var serverip = '160.119.248.28';
+var serverip = '127.0.0.1' ;
 var serverport = 4242;
 
 try{
