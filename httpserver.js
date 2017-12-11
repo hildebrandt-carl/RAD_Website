@@ -21,8 +21,8 @@ catch(err){
 }
 
 
-var nummesg = 900;
-var numusers = 9000;
+var nummesg = 10;
+var numusers = 3;
 var vrb = "0";
 var web = "0";
 var con = "0";
@@ -31,30 +31,20 @@ var tim  = "12:12:12";
 
 var server = http.createServer(function(req, resp) 
 {
-	/*
-	var nummesg = 0;
-	var numusers = 9000;
-	var vr = 0;
-	var web = 0;
-	var con = 0;
-	var timeonline = 1:16:10;
-	*/
     var uri = url.parse(req.url).pathname;
-    console.log(req.url);
-	console.log(req.method);
+    console.log("URL Being connected with: " + req.url);
+	console.log("HTML Page: " + req.method);
 	//RootHTML page
 	if(uri === "/"){
 		
 		fs.readFile("./Format.html", 'utf-8', function (error, pgResp) {
-            console.log("currently in function Root");
+            console.log("currently in function Root, pulling Home Page");
             if (error) {
                 resp.writeHead(404);
                 resp.write('Contents you are looking are Not Found');
             }
             else {
-                //console.log("currently printing Root " + nummesg);
                 resp.writeHead(200, { 'Content-Type': 'text/html' });
-				//console.log("Wrote Head " + nummesg);
 				var renderedHtml = ejs.render(pgResp, {nummesg: nummesg, numusers: numusers, vrb: vrb, web: web, con: con, tim: tim});
 			    resp.write(renderedHtml);	
             }
@@ -94,12 +84,14 @@ var server = http.createServer(function(req, resp)
         });
     } 
 	else {
-        console.log("interesting, second else: " + uri);
+        console.log("Unknown Page: " + uri);
+		resp.writeHead(404);
+		resp.write('Contents you are looking are Not Found');
 	    resp.end();
 	};
 	
 	if (req.method.toLowerCase() == 'post') {
-		console.log("posting up");
+		console.log("HTML Page is Posting");
         processdrum(req, resp);
     }	
 });
@@ -108,10 +100,7 @@ console.log("Server is listening");
 
 s.on('data', function(d)
 {
-	console.log(d.toString());
-	console.log(String(d).substring(4,1));
-	console.log(String(d).substring(3,4));
-	console.log(String(d).substring(4,5));
+	console.log("Received Message From HTML Page: " + d.toString());
 	if(String(d).substring(0,3) == "ack"){
 		console.log(d.toString());
 	}
@@ -121,7 +110,32 @@ s.on('data', function(d)
 	else if(String(d).substring(0,3) == "usr"){
 		numusers = parseInt(String(d).substring(3), 10);
 	}
-	else if(String(d).substring(0,3) == "vrb"){
+	else if(String(d).substring(0,3) == "tim"){
+		tim = String(d).substring(3);
+	}
+	//Connections
+	if(String(d).substring(0,3) == "web"&& String(d).substring(4,7) == "vrb" && String(d).substring(8,11) == "con"){
+		if(parseInt(String(d).substring(3,4), 10) == 1){
+		web = "1";
+		}
+		else if(parseInt(String(d).substring(3,4), 10) == 0){
+		web = "0";
+		}
+		if(parseInt(String(d).substring(7,8), 10) == 1){
+		vr = "1";
+		}
+		else if(parseInt(String(d).substring(7,8), 10) == 0){
+		vr = "0";
+		}
+		if(parseInt(String(d).substring(11,12), 10) == 1){
+		con = "1";
+		}
+		else if(parseInt(String(d).substring(11,12), 10) == 0){
+		con = "0";
+		}
+	}
+	
+	if(String(d).substring(0,3) == "vrb"){
 		if(parseInt(String(d).substring(3,4), 10) == 1){
 		vr = "1";
 		}
@@ -144,13 +158,6 @@ s.on('data', function(d)
 		else if(parseInt(String(d).substring(3,4), 10) == 0){
 		con = "0";
 		}
-	}
-	else if(String(d).substring(0,3) == "tim"){
-		tim = String(d).substring(3);
-	}
-	else
-	{
-		console.log("error in received message " + d);
 	}	
 });
 
