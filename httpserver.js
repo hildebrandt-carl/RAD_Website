@@ -101,7 +101,7 @@ console.log("Server is listening");
 
 s.on('data', function(d)
 {
-	console.log("Received Message From HTML Page: " + d.toString());
+	console.log("Received Message From webserver: " + d.toString());
 	if(String(d).substring(0,3) == "ack"){
 		console.log(d.toString());
 	}
