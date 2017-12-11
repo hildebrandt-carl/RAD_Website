@@ -166,12 +166,12 @@ function processdrum(req, resp)
     //Store the data from the fields in your data store.
     //The data store could be a file or database or any other store based
     //on your application.
-	console.log("Individual Fields");
+	console.log("Website Input Received");
     var fields = [];
     var form = new formidable.IncomingForm();
     form.on('field', function (field, value) {
-        console.log(field);
-		console.log(value);
+        console.log("Which Drum: " + field);
+		console.log("Value of Drum: " + value);
 		output = 'x'
 		switch(String(value))
 		{
