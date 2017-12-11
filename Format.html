@@ -214,7 +214,6 @@ div.updatevalue {
 <!-- START OF HTML PAGE -->
 </head>
 <body>
-
 <div class="topnav" id="myTopnav">
   <a class="active" href="http://127.0.0.1:4343/">RAD Team</a>
   <a href="https://github.com/hildebrandt-carl/RAD_VirtualReality">The Code</a>
@@ -224,15 +223,12 @@ div.updatevalue {
 
 <div class="bg">
 	<div class="updatevalue" style="top:1%;">
-	<p>
-	Number of Drum Strikes so Far
-	<%= nummesg %><br />
-	Number of Users Connected <%= numusers %><br />
-	Vr Connected <%= vrb %><br />
-	Web Connected <%= web %><br />
-	Con Connected <%= con %><br />
-	Time Server Has Been Online <%= tim %><br />
-	</p>
+	<p id="numdrums">Number of Drum Strikes so Far <%= nummesg %>;</p>
+	<p id="users">Number of Users Connected <%= numusers %></p>
+	<p id="vrcon">Is a Virtual Reality Machine Connected? </p>
+	<p id="webcon">Web Connected </p>
+	<p id="concon">Con Connected </p>
+	<p id="onlinetime">Time Server Has Been Online <%= tim %></p>
 	</div>
 	
 	<form action="http://127.0.0.1:4343/" method="post" enctype="multipart/form-data" >
@@ -270,36 +266,36 @@ div.updatevalue {
 	
 	<div class="bottomRight">
         <a>Be like Brock - RAD_Team</a>
-	<p id="demo"></p>
     </div>
 </div>
+
 <script>
-function myFunction() {
-	document.getElementById("demo").innerHTML = "Hello JavaScript!";
-	document.getElementById("demo").style.fontSize = "25px"; 
-    document.getElementById("demo").style.fontSize = "25px"; 
-    document.getElementById("demo").style.color = "red";
-    document.getElementById("demo").style.backgroundColor = "green";        
+var vrconnection = <%= vrb %>;
+if (vrconnection > 0) {
+    document.getElementById("vrcon").innerHTML = "Is a Virtual Reality Machine Connected? &#9989";
+}
+else{
+	document.getElementById("vrcon").innerHTML = "Is a Virtual Reality Machine Connected? &#10062;";
 }
 </script>
 
 <script>
-function myFunction2() {
-	document.getElementById("demo").innerHTML = "Hello Carl!";
-	document.getElementById("demo").style.fontSize = "25px"; 
-    document.getElementById("demo").style.fontSize = "25px"; 
-    document.getElementById("demo").style.color = "white";
-    document.getElementById("demo").style.backgroundColor = "black";        
+var webconnection = <%= web %>;
+if (webconnection > 0) {
+    document.getElementById("webcon").innerHTML = "Is Web Page Connected? &#9989";
+}
+else{
+	document.getElementById("webcon").innerHTML = "Is Web Page Connected? &#10062;";
 }
 </script>
 
 <script>
-function myFunction3() {
-	document.getElementById("demo").innerHTML = "Hello Rebecca!";
-	document.getElementById("demo").style.fontSize = "25px"; 
-    document.getElementById("demo").style.fontSize = "25px"; 
-    document.getElementById("demo").style.color = "yellow";
-    document.getElementById("demo").style.backgroundColor = "blue";        
+var controllerconnection = <%= con %>;
+if (controllerconnection > 0) {
+    document.getElementById("concon").innerHTML = "Is the controller connected? &#9989";
+}
+else{
+	document.getElementById("concon").innerHTML = "Is the controller connected? &#10062;";
 }
 </script>
 

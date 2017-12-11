@@ -48,6 +48,7 @@ var server = http.createServer(function(req, resp)
 				var renderedHtml = ejs.render(pgResp, {nummesg: nummesg, numusers: numusers, vrb: vrb, web: web, con: con, tim: tim});
 			    resp.write(renderedHtml);	
             }
+			console.log("");
             resp.end();
         });
 	} 
@@ -122,10 +123,10 @@ s.on('data', function(d)
 		web = "0";
 		}
 		if(parseInt(String(d).substring(7,8), 10) == 1){
-		vr = "1";
+		vrb = "1";
 		}
 		else if(parseInt(String(d).substring(7,8), 10) == 0){
-		vr = "0";
+		vrb = "0";
 		}
 		if(parseInt(String(d).substring(11,12), 10) == 1){
 		con = "1";
@@ -137,10 +138,10 @@ s.on('data', function(d)
 	
 	if(String(d).substring(0,3) == "vrb"){
 		if(parseInt(String(d).substring(3,4), 10) == 1){
-		vr = "1";
+		vrb = "1";
 		}
 		else if(parseInt(String(d).substring(3,4), 10) == 0){
-		vr = "0";
+		vrb = "0";
 		}
 	}
 	else if(String(d).substring(0,3) == "web"){
