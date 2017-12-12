@@ -83,6 +83,62 @@ var server = http.createServer(function(req, resp)
             resp.end();
         });
     } 
+    else if(uri === "/Code")  //Code page
+    {
+        fs.readFile("./Code.html", 'utf-8', function (error, pgResp) {
+            console.log("currently in function Root, pulling VR page");
+            if (error) {
+                resp.writeHead(404);
+                resp.write('Contents you are looking are Not Found');
+            }
+            else {
+                resp.writeHead(200, { 'Content-Type': 'text/html' });
+		var renderedHtml = ejs.render(pgResp, {nummesg: nummesg});
+		resp.write(renderedHtml);	
+            }
+            resp.end();
+        });
+    } 
+    else if(uri === "/UserGuide")  //User Guide html page
+    {
+        fs.readFile("./UserGuide.html", 'utf-8', function (error, pgResp) {
+            console.log("currently in function Root, pulling VR page");
+            if (error) {
+                resp.writeHead(404);
+                resp.write('Contents you are looking are Not Found');
+            }
+            else {
+                resp.writeHead(200, { 'Content-Type': 'text/html' });
+		var renderedHtml = ejs.render(pgResp, {nummesg: nummesg});
+		resp.write(renderedHtml);	
+            }
+            resp.end();
+        });
+    } 
+    else if(uri === "/drumsets.png")  //drumsets image
+    {
+        var img = fs.readFileSync('./drumsets.png');
+        resp.writeHead(200, { 'Content-Type': 'image/png' });
+	resp.end(img, 'binary');
+    } 
+    else if(uri === "/favicon.png")  //favicon image
+    {
+        var img = fs.readFileSync('./favicon.png');
+        resp.writeHead(200, { 'Content-Type': 'image/png' });
+	resp.end(img, 'binary');
+    } 
+    else if(uri === "/background.png")  //favicon image
+    {
+        var img = fs.readFileSync('./background.png');
+        resp.writeHead(200, { 'Content-Type': 'image/png' });
+	resp.end(img, 'binary');
+    } 
+    else if(uri === "/UserGuide.pdf")  //User Guide pdf
+    {
+        var data =fs.readFileSync('./UserGuide.pdf');
+	resp.writeHead(200, { 'Content-Type': 'application/pdf' });
+	resp.write(data);
+    } 
     else
     {
         console.log("Unknown Page: " + uri);
