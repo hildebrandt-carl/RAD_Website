@@ -6,7 +6,6 @@ var formidable = require("formidable");
 var util = require('util');
 var s = require("net").Socket();
 var serverip = '160.119.248.28';
-//var serverip = '127.0.0.1' ;
 var serverport = 4242;
 
 try{
@@ -17,7 +16,7 @@ try{
 catch(err){
 	console.log("failed connection");
 	resp.writeHead(420);
-    resp.write('Failed Connection');
+    	resp.write('Failed Connection');
 }
 
 
@@ -33,66 +32,67 @@ var server = http.createServer(function(req, resp)
 {
     var uri = url.parse(req.url).pathname;
     console.log("URL Being connected with: " + req.url);
-	console.log("HTML Page: " + req.method);
-	//RootHTML page
-	if(uri === "/"){
-		
-		fs.readFile("./Format.html", 'utf-8', function (error, pgResp) {
-            console.log("currently in function Root, pulling Home Page");
-            if (error) {
-                resp.writeHead(404);
-                resp.write('Contents you are looking are Not Found');
-            }
-            else {
-                resp.writeHead(200, { 'Content-Type': 'text/html' });
-				var renderedHtml = ejs.render(pgResp, {nummesg: nummesg, numusers: numusers, vrb: vrb, web: web, con: con, tim: tim});
-			    resp.write(renderedHtml);	
-            }
-			console.log("");
-            resp.end();
-        });
-	} 
-	else if(uri === "/Drum") {//FormHTML, for testing
-        fs.readFile("./FormatDrum.html", 'utf-8', function (error, pgResp) {
-            console.log("currently in function Root");
-            if (error) {
-                resp.writeHead(404);
-                resp.write('Contents you are looking are Not Found');
-            }
-            else {
-                console.log("currently printing Root " + nummesg);
-                resp.writeHead(200, { 'Content-Type': 'text/html' });
-				console.log("Wrote Head " + nummesg);
-				var renderedHtml = ejs.render(pgResp, {nummesg: nummesg});
-			    resp.write(renderedHtml);	
-            }
-            resp.end();
-        });
-    } 
-	else if (uri === "/test") {//TestHTML, for testing
-        fs.readFile("./testing.html", function (error, pgResp) {
-            console.log("currently in function Testing");
-            if (error) {
-                resp.writeHead(404);
-                resp.write('Contents you are looking are Not Found');
-            }
-            else {
-                console.log("currently else or printing Testing");
-                resp.writeHead(200, { 'Content-Type': 'text/html' });
-				resp.write(pgResp);
-            }
-            resp.end();
-        });
-    } 
-	else {
-        console.log("Unknown Page: " + uri);
-		resp.writeHead(404);
-		resp.write('Contents you are looking are Not Found');
-	    resp.end();
-	};
+    console.log("HTML Page: " + req.method);
 	
-	if (req.method.toLowerCase() == 'post') {
-		console.log("HTML Page is Posting");
+    if(uri === "/") //RootHTML page
+    { 
+	fs.readFile("./Format.html", 'utf-8', function (error, pgResp) {
+            console.log("currently in function Root, pulling Home page");
+            if (error) {
+                resp.writeHead(404);
+                resp.write('Contents you are looking are Not Found');
+            }
+            else {
+                resp.writeHead(200, { 'Content-Type': 'text/html' });
+		var renderedHtml = ejs.render(pgResp, {nummesg: nummesg, numusers: numusers, vrb: vrb, web: web, con: con, tim: tim});
+		resp.write(renderedHtml);	
+            }
+	    console.log("");
+            resp.end();
+        });
+    } 
+    else if(uri === "/About")  //About page
+    {
+        fs.readFile("./About.html", 'utf-8', function (error, pgResp) {
+            console.log("currently in function Root, pulling About page");
+            if (error) {
+                resp.writeHead(404);
+                resp.write('Contents you are looking are Not Found');
+            }
+            else {
+                resp.writeHead(200, { 'Content-Type': 'text/html' });
+		var renderedHtml = ejs.render(pgResp, {nummesg: nummesg});
+		resp.write(renderedHtml);	
+            }
+            resp.end();
+        });
+    } 
+    else if(uri === "/VRProgram")  //About page
+    {
+        fs.readFile("./VRProgram.html", 'utf-8', function (error, pgResp) {
+            console.log("currently in function Root, pulling VR page");
+            if (error) {
+                resp.writeHead(404);
+                resp.write('Contents you are looking are Not Found');
+            }
+            else {
+                resp.writeHead(200, { 'Content-Type': 'text/html' });
+		var renderedHtml = ejs.render(pgResp, {nummesg: nummesg});
+		resp.write(renderedHtml);	
+            }
+            resp.end();
+        });
+    } 
+    else
+    {
+        console.log("Unknown Page: " + uri);
+	resp.writeHead(404);
+	resp.write('Contents you are looking are Not Found');
+	resp.end();
+    };
+	
+    if (req.method.toLowerCase() == 'post') {
+	console.log("HTML Page is Posting");
         processdrum(req, resp);
     }	
 });
@@ -114,51 +114,15 @@ s.on('data', function(d)
 	else if(String(d).substring(0,3) == "tim"){
 		tim = String(d).substring(3);
 	}
-	//Connections
-	if(String(d).substring(0,3) == "web"&& String(d).substring(4,7) == "vrb" && String(d).substring(8,11) == "con"){
-		if(parseInt(String(d).substring(3,4), 10) == 1){
-		web = "1";
-		}
-		else if(parseInt(String(d).substring(3,4), 10) == 0){
-		web = "0";
-		}
-		if(parseInt(String(d).substring(7,8), 10) == 1){
-		vrb = "1";
-		}
-		else if(parseInt(String(d).substring(7,8), 10) == 0){
-		vrb = "0";
-		}
-		if(parseInt(String(d).substring(11,12), 10) == 1){
-		con = "1";
-		}
-		else if(parseInt(String(d).substring(11,12), 10) == 0){
-		con = "0";
-		}
-	}
 	
 	if(String(d).substring(0,3) == "vrb"){
-		if(parseInt(String(d).substring(3,4), 10) == 1){
-		vrb = "1";
-		}
-		else if(parseInt(String(d).substring(3,4), 10) == 0){
-		vrb = "0";
-		}
+		vrb = String(d).substring(3,4);
 	}
 	else if(String(d).substring(0,3) == "web"){
-		if(parseInt(String(d).substring(3,4), 10) == 1){
-		web = "1";
-		}
-		else if(parseInt(String(d).substring(3,4), 10) == 0){
-		web = "0";
-		}
+		web = String(d).substring(3,4);
 	}
 	else if(String(d).substring(0,3) == "con"){
-		if(parseInt(String(d).substring(3,4), 10) == 1){
-		con = "1";
-		}
-		else if(parseInt(String(d).substring(3,4), 10) == 0){
-		con = "0";
-		}
+		con = String(d).substring(3,4);
 	}	
 });
 
@@ -205,7 +169,7 @@ function processdrum(req, resp)
 				output = 'x' ;
 			break;
 			case 'Full Song':
-			output = 'y' ;
+				output = 'y' ;
 			break;
 			case 'Annoy Grad Students':
 				output = 'abcdefg' ;

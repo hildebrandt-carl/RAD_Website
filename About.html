@@ -30,20 +30,38 @@ body, html {
     z-index: -1
 }
 
+/* unvisited link - blue */
+a:link {
+    color: #3498DB;
+}
 
-div.updatevalue {
+/* visited link - green */
+a:visited {
+    color: green;
+}
+
+/* mouse over link - light blue */
+a:hover {
+    color: #99ddff;
+}
+
+/* selected link - light green */
+a:active {
+    color: #82BF56;
+} 
+div.textbox {
 	border-radius: 25px;
-    position: relative;
+    	position: relative;
 	margin:auto;
 	width: 550px;
 	height: auto;
 	text-align: center;
-    border: 5px solid #ff9900;
+    	border: 5px solid #ff9900;
 	background-color: #F2CF66;
 	font-family: Arial;
-	font-size: 15px;
+	font-size: 20px;
 	font-style: normal;
-	font-variant: normal;
+	font-variant: bold;
 	font-weight: 500;
 	color: #FFFFFF;
 }
@@ -62,15 +80,13 @@ div.updatevalue {
 
 .center{
     width: 600px;
-    height: 150px;
+    height: 300px;
 
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -300px;
 }
 
 .bottomRight {
@@ -81,21 +97,13 @@ div.updatevalue {
     margin-bottom: 20px;
 
     font-family: Pacifico;
-	font-size: 20px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 500;
-	line-height: 26.4px;
+    font-size: 20px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 26.4px;
 
     color: #1d89ff;
-}
-
-.bottomLeft {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    margin-left: 50px;
-    margin-bottom: 20px;
 }
 
 
@@ -134,81 +142,6 @@ div.updatevalue {
     color: white;
 }
 
-.animate
-{
-	transition: all 0.1s;
-	-webkit-transition: all 0.1s;
-}
-
-.action-button
-{
-	position: relative;
-	padding: 10px 40px;
-    margin: 0px 10px 10px 0px;
-    float: left;
-	border-radius: 10px;
-	font-family: 'Pacifico', cursive;
-	font-size: 20px;
-	color: #FFF;
-	text-decoration: none;	
-	display: inline-block;
-}
-
-.blue
-{
-	background-color: #3498DB;
-	border-bottom: 5px solid #2980B9;
-	text-shadow: 0px -2px #2980B9;
-}
-
-.red
-{
-	background-color: #E74C3C;
-	border-bottom: 5px solid #BD3E31;
-	text-shadow: 0px -2px #BD3E31;
-}
-
-.green
-{
-	background-color: #82BF56;
-	border-bottom: 5px solid #669644;
-	text-shadow: 0px -2px #669644;
-}
-
-.yellow
-{
-	background-color: #F2CF66;
-	border-bottom: 5px solid #D1B358;
-	text-shadow: 0px -2px #D1B358;
-}
-
-.lightblue
-{
-	background-color: #99ddff;
-	border-bottom: 5px solid #006699;
-	text-shadow: 0px -2px #00334d;
-}
-
-.lightgreen
-{
-	background-color: #F2CF66;
-	border-bottom: 5px solid #D1B358;
-	text-shadow: 0px -2px #D1B358;
-}
-
-.eggshell
-{
-	background-color: #F2CF66;
-	border-bottom: 5px solid #D1B358;
-	text-shadow: 0px -2px #D1B358;
-}
-
-.action-button:active
-{
-	transform: translate(0px,5px);
-    -webkit-transform: translate(0px,5px);
-	/*border-bottom: 1px solid;*/
-}
 
 </style>
 <!-- START OF HTML PAGE -->
@@ -221,91 +154,23 @@ div.updatevalue {
   <a href="http://127.0.0.1:4343/About">About</a>
 </div>
 
-<div class="bg">
-	<div class="updatevalue" style="top:1%;">
-	<p id="numdrums" style="line-height: 0.4;"><b>Number of drum strikes so far <%= nummesg %>;</b></p>
-	<p id="users" style="line-height: 0.4;"><b>Number of users connected <%= numusers %></b></p>
-	<p id="vrcon" style="line-height: 0.4;"><b>Virtual reality program connected? </b></p>
-	<p id="webcon" style="line-height: 0.4;"><b>Web page connected? </b></p>
-	<p id="concon" style="line-height: 0.4;"><b>Drum set controller connected? </b></p>
-	<p id="onlinetime" style="line-height: 0.4;"><b>Time server has been online <%= tim %></b></p>
-	</div>
-	
-	<form action="http://127.0.0.1:4343/" method="post" enctype="multipart/form-data" >
-		
-		<div class="center">
-		<input type="submit" name="Drum1" value="Bass" 
-		class="action-button shadow animate red"/>
-		<input type="submit" name="Drum2" value="Floor Tom" 
-		class="action-button shadow animate green"/>
-		<input type="submit" name="Drum3" value="Low Tom" 
-		class="action-button shadow animate yellow"/>
-		<input type="submit" name="Drum4" value="Hi Tom" 
-		class="action-button shadow animate yellow"/>
-		<input type="submit" name="Drum5" value="Snare" 
-		class="action-button shadow animate green"/>
-		<input type="submit" name="Drum6" value="Hi Hat" 
-		class="action-button shadow animate red"/>
-		<input type="submit" name="Drum7" value="Cymbal" 
-		class="action-button shadow animate green"/>
-		<input type="submit" name="Drum8" value="Simple Beat" 
-		class="action-button shadow animate blue"/>
-		<input type="submit" name="Drum9" value="Complex Beat" 
-		class="action-button shadow animate blue"/>
-		<input type="submit" name="Drum9" value="Full Song" 
-		class="action-button shadow animate blue"/>
-		<input type="submit" name="Drum10" value="Annoy Grad Students" 
-		class="action-button shadow animate red "/>
-		</div>
 
-		<div class="bottomLeft">
-			<input type="submit" name="Drum11" value="Stop" 
-			class="action-button shadow animate red "/>
-		</div>
-	</form>
-	
-	<div class="bottomRight">
+<div class="bg">
+    <div class="center">
+	<div class="textbox">
+	<p><b> This project was made for the Advanced Embedded Systems course at University of Nebraska - Lincoln. 
+	The goal of the project was to build upon the exising drum set hardware and make it do something awesome!</b></p>
+	<p><b> RAD_Team chose to make the drum set an Internet of Things device that can be controlled from a website.
+	It can also be controlled from a virtual reality program running on any internet-connected computer. This 
+	allows users from all over the world to play the UNL drum set. </b></p>
+	<p><b> The User Guide for the system is available  <a href="UserGuide.pdf" download>here</a>. </b></p>
+	</div>
+
+    </div>
+    <div class="bottomRight">
         <a>Be like Brock - RAD_Team</a>
     </div>
 </div>
-
-<script>
-var vrconnection = <%= vrb %>;
-if (vrconnection > 0) {
-    document.getElementById("vrcon").innerHTML = "<b>Virtual reality program connected?</b> &#9989";
-}
-else{
-	document.getElementById("vrcon").innerHTML = "<b>Virtual reality program connected?</b> &#10062;";
-}
-</script>
-
-<script>
-var webconnection = <%= web %>;
-if (webconnection > 0) {
-    document.getElementById("webcon").innerHTML = "<b>Web page connected?</b> &#9989";
-}
-else{
-	document.getElementById("webcon").innerHTML = "<b>Web page connected?</b> &#10062;";
-}
-</script>
-
-<script>
-var controllerconnection = <%= con %>;
-if (controllerconnection > 0) {
-    document.getElementById("concon").innerHTML = "<b>Drum set controller connected?</b> &#9989";
-}
-else{
-	document.getElementById("concon").innerHTML = "<b>Drum set controller connected?</b> &#10062;";
-}
-</script>
-
-<script>
-function strike(number)
-{
-	alert("There are this many users: " + number);
-}
-</script>
-
 
 </body>
 </html>
