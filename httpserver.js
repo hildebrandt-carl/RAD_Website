@@ -168,6 +168,7 @@ s.on('data', function(d)
 	    }
 	    else if(msg.substring(0,3) == "tim"){
 		tim = msg.substring(3);
+		console.log(tim);
 	    }
 	
 	    else if(msg.substring(0,3) == "vrb"){
