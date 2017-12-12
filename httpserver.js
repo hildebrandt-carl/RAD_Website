@@ -158,28 +158,28 @@ console.log("Server is listening");
 s.on('data', function(d)
 {
 	console.log("Received Message From webserver: " + d.toString());
-	if(String(d).substring(0,3) == "ack"){
-		console.log(d.toString());
-	}
-	else if(String(d).substring(0,3) == "meg"){
-		nummesg = parseInt(String(d).substring(3), 10);
-	}
-	else if(String(d).substring(0,3) == "usr"){
-		numusers = parseInt(String(d).substring(3), 10);
-	}
-	else if(String(d).substring(0,3) == "tim"){
-		tim = String(d).substring(3);
-	}
+	var msgs = d.toString().split("#");
+	for (msg of msgs) {
+	    if(msg.substring(0,3) == "meg"){
+		nummesg = parseInt(msg.substring(3), 10);
+	    }
+	    else if(msg.substring(0,3) == "usr"){
+		numusers = parseInt(msg.substring(3), 10);
+	    }
+	    else if(msg.substring(0,3) == "tim"){
+		tim = msg.substring(3);
+	    }
 	
-	if(String(d).substring(0,3) == "vrb"){
-		vrb = String(d).substring(3,4);
+	    else if(msg.substring(0,3) == "vrb"){
+		vrb = msg.substring(3,4);
+	    }
+	    else if(msg.substring(0,3) == "web"){
+		web = msg.substring(3,4);
+	    }
+	    else if(msg.substring(0,3) == "con"){
+		con = msg.substring(3,4);
+	    }	
 	}
-	else if(String(d).substring(0,3) == "web"){
-		web = String(d).substring(3,4);
-	}
-	else if(String(d).substring(0,3) == "con"){
-		con = String(d).substring(3,4);
-	}	
 });
 
 function processdrum(req, resp) 
