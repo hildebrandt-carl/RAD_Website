@@ -160,6 +160,7 @@ s.on('data', function(d)
 	console.log("Received Message From webserver: " + d.toString());
 	var msgs = d.toString().split("#");
 	for (msg of msgs) {
+		console.log(msg);
 	    if(msg.substring(0,3) == "meg"){
 		nummesg = parseInt(msg.substring(3), 10);
 	    }
@@ -168,7 +169,6 @@ s.on('data', function(d)
 	    }
 	    else if(msg.substring(0,3) == "tim"){
 		tim = msg.substring(3);
-		console.log(tim);
 	    }
 	
 	    else if(msg.substring(0,3) == "vrb"){
